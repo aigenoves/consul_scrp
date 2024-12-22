@@ -10,7 +10,7 @@ def send_telegram_message(message: str):
 
     for chat_id in CHAT_IDS:
         url = f"https://api.telegram.org/bot{TELEGRAM_API_TOKEN}/sendMessage"
-        print(chat_id)
+        print(type(chat_id))
         response = requests.post(url, data={"chat_id": chat_id, "text": message})
         if response.status_code == 200:
             return True
