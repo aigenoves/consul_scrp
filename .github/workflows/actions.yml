@@ -6,6 +6,8 @@ on:
     
   schedule:
       - cron: '*/5 * * * *'  # Cada 5 minutos
+env:
+  TELEGRAM_API_TOKEN: ${{ vars.TELEGRAM_API_TOKEN }}
 jobs:
     build:
         runs-on: ubuntu-latest
@@ -27,5 +29,5 @@ jobs:
                 
             - name: Run scraper 
               run: python main.py
-              env:
-                  TELEGRAM_API_TOKEN: ${{ secrets.TELEGRAM_API_TOKEN }}
+              # env:
+              #     TELEGRAM_API_TOKEN: ${{ vars.TELEGRAM_API_TOKEN }}
