@@ -22,3 +22,7 @@ jobs:
               env:
                 TELEGRAM_API_BOT: ${{ secrets.TELEGRAM_API_BOT }}   
               run: python main.py
+            - name: PrintVar
+              env:
+                TELEGRAM_API_BOT: ${{ secrets.TELEGRAM_API_BOT }}   
+              run: echo $TELEGRAM_API_BOT
