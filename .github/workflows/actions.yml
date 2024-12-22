@@ -4,8 +4,8 @@ on:
     branches:
       - main
     
-  # schedule:
-  #     - cron: '*/5 * * * *'  # Cada 5 minutos
+  schedule:
+      - cron: '0 * * * *'
 
 jobs:
     build:
@@ -15,6 +15,7 @@ jobs:
           id-token: write
         env:
             TELEGRAM_API_TOKEN: ${{ vars.TELEGRAM_API_TOKEN }}
+            TELEGRAM_CHAT_IDS: ${{ vars.TELEGRAM_CHAT_IDS }}
         steps:
             - name: Checkout code
               uses: actions/checkout@v3
@@ -27,19 +28,6 @@ jobs:
               run: |
                   python -m pip install --upgrade pip
                   pip install -r requirements.txt
-
-            - name: Install cron daemon
-              run: |
-                sudo apt-get update
-                sudo apt-get install cron -y
-                sudo service cron start
-
-            - name: Set up cronjob
-              run: |
-                echo "*/5 * * * * python main.py" | sudo tee -a /etc/cron.d/scraper-cron
-
-            - name: Debug environment
-              run: env
                 
             - name: Run scraper
               run: python main.py
