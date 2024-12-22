@@ -23,4 +23,4 @@ jobs:
                 TELEGRAM_API_BOT: ${{ secrets.TELEGRAM_API_BOT }}   
               run: python main.py
             - name: PrintVar
-              run: echo "var ${{ secrets.TELEGRAM_API_BOT }}"
+              run: echo "${{ secrets.TELEGRAM_API_BOT }}"
