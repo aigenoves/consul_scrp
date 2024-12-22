@@ -6,11 +6,13 @@ on:
     
   schedule:
       - cron: '*/5 * * * *'  # Cada 5 minutos
-env:
-  TELEGRAM_API_TOKEN: ${{ vars.TELEGRAM_API_TOKEN }}
+
 jobs:
     build:
         runs-on: ubuntu-latest
+        permissions:
+          contents: read
+          id-token: write  # Permiso para leer secretos
         steps:
             - name: Checkout code
               uses: actions/checkout@v3
@@ -27,7 +29,8 @@ jobs:
             - name: Debug environment
               run: env
                 
-            - name: Run scraper 
+            - name: Run scraper
+              env:
+                TELEGRAM_API_TOKEN: ${{ secrets.TELEGRAM_API_TOKEN }}
               run: python main.py
-              # env:
-              #     TELEGRAM_API_TOKEN: ${{ vars.TELEGRAM_API_TOKEN }}
+
