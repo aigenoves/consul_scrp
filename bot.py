@@ -2,7 +2,7 @@ import os
 import requests
 
 CHAT_ID = "254021544"
-TELEGRAM_API_TOKEN = os.environ.get("GITHUB_ENV")
+TELEGRAM_API_TOKEN = os.environ.get("TELEGRAM_API_TOKEN")
 
 
 def send_telegram_message(message: str):
