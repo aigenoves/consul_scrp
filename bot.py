@@ -1,7 +1,7 @@
 import os
 import requests
 
-CHAT_IDS = os.environ.get("TELEGRAM_CHAT_IDS").SPLIT(",")
+CHAT_IDS = os.environ.get("TELEGRAM_CHAT_IDS").split(",")
 TELEGRAM_API_TOKEN = os.environ.get("TELEGRAM_API_TOKEN")
 
 
