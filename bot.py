@@ -12,5 +12,5 @@ def send_telegram_message(message: str):
     if response.status_code == 200:
         return True
     else:
+        print(f"Error al enviar el mensaje: {response.status_code}, {response.text}")
         return False
-        # print(f"Error al enviar el mensaje: {response.status_code}, {response.text}")
