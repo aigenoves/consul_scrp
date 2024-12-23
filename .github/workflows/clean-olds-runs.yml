@@ -1,6 +1,9 @@
 name: Clean Old Runs
 
 on:
+  push:
+    branches:
+        - main
   schedule:
     - cron: "0 0 * * *"  # Ejecuta esta acción diariamente a medianoche
 
@@ -16,9 +19,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Obtener los últimos 3 runs para mantenerlos
-          runs_to_delete=$(gh run list --status completed --limit 100 --json id | jq -r '.[0:$(jq length -n add - 3)] | .[].id')
-          
-          for run_id in $runs_to_delete; do
-            gh run delete --id $run_id --yes
+          # Lista todos los workflows
+          workflows=$(gh workflow list --json name --jq '.[].name')
+
+          for workflow in $workflows; do
+            echo "Processing workflow: $workflow"
+
+            # Obtener los IDs de los runs a eliminar, dejando los últimos 3
+            runs_to_delete=$(gh run list --workflow "$workflow" --status completed --limit 100 --json id | jq -r '.[3:] | .[].id')
+
+            for run_id in $runs_to_delete; do
+              echo "Deleting run ID: $run_id"
+              gh run delete --id "$run_id" --yes
+            done
           done
