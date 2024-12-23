@@ -35,7 +35,7 @@ jobs:
 
             for run_id in $runs_to_delete; do
               echo "Deleting run ID: $run_id"
-              # Elimina directamente el run usando su ID
-              gh run delete "$run_id" --yes
+              # Usa 'yes' para confirmar automáticamente
+              yes | gh run delete "$run_id"
             done
           done
