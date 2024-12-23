@@ -1,11 +1,11 @@
 name: Clean Old Runs
 
 on:
-  push:
-    branches:
-        - main
-  schedule:
-    - cron: "0 0 * * *"  # Ejecuta esta acción diariamente a medianoche
+    workflow_run:
+        workflows:
+          - Run Scraper
+        types:
+          - completed
 
 jobs:
   clean-runs:
