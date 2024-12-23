@@ -14,6 +14,7 @@ jobs:
           contents: read
           id-token: write
         env:
+            TZ: America/Argentina/Buenos_Aires # Cambia a la zona horaria deseada
             TELEGRAM_API_TOKEN: ${{ vars.TELEGRAM_API_TOKEN }}
             TELEGRAM_CHAT_IDS: ${{ vars.TELEGRAM_CHAT_IDS }}
         steps:
