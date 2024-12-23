@@ -1,0 +1,24 @@
+name: Clean Old Runs
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # Ejecuta esta acción diariamente a medianoche
+
+jobs:
+  clean-runs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Delete Old Runs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Obtener los últimos 3 runs para mantenerlos
+          runs_to_delete=$(gh run list --status completed --limit 100 --json id | jq -r '.[0:$(jq length -n add - 3)] | .[].id')
+          
+          for run_id in $runs_to_delete; do
+            gh run delete --id $run_id --yes
+          done

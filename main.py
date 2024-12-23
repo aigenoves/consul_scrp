@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 from bs4 import BeautifulSoup
 from bot import send_telegram_message
 
@@ -21,7 +22,7 @@ if response.status_code == 200:
             if third_col != "fecha por confirmar":
                 send_telegram_message(f"Fecha: {third_col}")
             else:
-                print("No hay fechas disponibles")
+                print(f"No hay fechas disponibles al {datetime.today()}")
             break
 else:
     print(f"Error al acceder a la página: {response.status_code}")
