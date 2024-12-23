@@ -19,14 +19,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Lista todos los workflows
-          workflows=$(gh workflow list --json name --jq '.[].name')
+          # Lista los workflows específicos
+          workflows=("Clean Old Runs" "Run Scraper")
 
-          for workflow in $workflows; do
+          for workflow in "${workflows[@]}"; do
             echo "Processing workflow: $workflow"
 
-            # Obtener los IDs de los runs a eliminar, dejando los últimos 3
+            # Lista los últimos 100 runs y excluye los últimos 3
             runs_to_delete=$(gh run list --workflow "$workflow" --status completed --limit 100 --json databaseId | jq -r '.[3:] | .[].databaseId')
+
+            if [ -z "$runs_to_delete" ]; then
+              echo "No runs to delete for $workflow"
+              continue
+            fi
 
             for run_id in $runs_to_delete; do
               echo "Deleting run ID: $run_id"
