@@ -19,10 +19,10 @@ if response.status_code == 200:
             and "pasaportesrenovación" in columns[0].get_text(strip=True).lower()
         ):
             third_col = columns[2].get_text(strip=True)
-            """if third_col != "fecha por confirmar":
+            if third_col != "fecha por confirmar":
                 send_telegram_message(f"Fecha: {third_col}")
             else:
-                print(f"No hay fechas disponibles al {datetime.today()}")"""
+                print(f"No hay fechas disponibles al {datetime.today()}")
             break
 else:
     print(f"Error al acceder a la página: {response.status_code}")
