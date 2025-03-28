@@ -20,8 +20,8 @@ if response.status_code == 200:
         ):
             third_col = columns[2].get_text(strip=True)
             if third_col != "fecha por confirmar":
-                send_telegram_message(f"Fecha: {third_col}")
-                #pass
+                #send_telegram_message(f"Fecha: {third_col}")
+                pass
             else:
                 print(f"No hay fechas disponibles al {datetime.today()}")
             break
